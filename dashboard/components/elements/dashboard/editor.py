@@ -34,7 +34,8 @@ class Editor(Dashboard.Item):
     def get_content(self, label):
         return self._tabs[label]["content"]
 
-    def __call__(self):
+    def __call__(self, *args, **kwargs):
+
         with mui.Paper(key=self._key, sx={"display": "flex", "flexDirection": "column", "borderRadius": 3, "overflow": "hidden"}, elevation=1):
 
             with self.title_bar("0px 15px 0px 15px"):

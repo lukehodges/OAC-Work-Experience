@@ -15,6 +15,7 @@ def dollar(f, round_ceil=decimal.ROUND_CEILING):
     """
     This function rounds the passed float to 2 decimal places.
     """
+    print(type(f))
     if not isinstance(f, decimal.Decimal):
         f = decimal.Decimal(str(f))
     return f.quantize(DOLLAR_QUANTIZE, rounding=round_ceil)
@@ -27,6 +28,7 @@ class Mortgage:
     amount: Decimal
 
     def __post_init__(self):
+        print(type(self.amount))
         self.amount = dollar(self.amount)
 
 
@@ -70,6 +72,7 @@ class Mortgage:
         return self.monthly_payment() * self.loan_months()
 
     def monthly_payment_schedule(self):
+        print("running...")
         monthly = self.monthly_payment()
         balance = dollar(self.amount)
         rate = decimal.Decimal(str(self.interest)).quantize(decimal.Decimal(".000001"))
@@ -77,10 +80,11 @@ class Mortgage:
             interest_unrounded = balance * rate * decimal.Decimal(1) / MONTHS_IN_YEAR
             interest = dollar(interest_unrounded, round_ceil=decimal.ROUND_HALF_UP)
             if monthly >= balance + interest:
-                yield balance, interest, rate
+                print("value finished")
+                yield float(balance), float(interest), float(rate)
                 break
             principle = monthly - interest
-            yield balance, interest, rate
+            yield float(balance), float(interest), float(rate)
             balance -= principle
 
     def calculate_mortgage_length(self, monthly_payment):
@@ -156,10 +160,3 @@ def print_summary(m):
 # a = RefactorMortgage.byMonthlyPayment(m,100)
 # print(a)
 
-t1 = time.time()
-for rate in range(250,750):
-    interest = rate/10000
-    m = Mortgage(interest,25*12,750_000)
-    print(m.calculate_mortgage_length(6000))
-t2 = time.time()
-print(t2-t1)

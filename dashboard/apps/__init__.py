@@ -1,2 +1,2 @@
 from .gallery import main as gallery
-from .mortgage import main as mortgage
+from .mortgage.app import main as mortgage

@@ -8,7 +8,6 @@ def main():
 
     with st.sidebar:
         st.title("Calculation Gallery")
-
         with st.expander("✨ APPS", True):
             page.item("Streamlit gallery", apps.gallery, default=True)
             page.item("Mortgage Calculator", apps.mortgage)
@@ -23,5 +22,6 @@ def main():
     page.show()
 
 if __name__ == "__main__":
-    st.set_page_config(page_title="Streamlit Gallery by Okld", page_icon="🎈", layout="wide")
+    st.set_page_config(page_title="Luke Da Hodges", page_icon="🎈", layout="wide")
+    st.header("OAC Calculators")
     main()
