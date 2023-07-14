@@ -3,7 +3,7 @@ import json
 import streamlit_elements
 import streamlit as st
 from streamlit import session_state as state
-from streamlit_elements import sync
+from streamlit_elements import sync, mui, nivo
 
 from .dashboard import Dashboard
 
@@ -33,11 +33,20 @@ class Variables(Dashboard.Item):
         #         #     ],
         #         # }
         # st_echarts(options=options)
-        if "interest_rate" not in state:state.interest_rate = [2.0,4.0]
+        
+        if "interest_rate" not in state:state.interest_rate = [2.0]
         if "debt" not in state:state.debt = 100_000
         if "rate" not in state: state.rate = 300
-        inter = st.slider("Interest_Rate", min_value=0.0, max_value=10.0, step=0.1, value=[2., 4.], key="interest_rate")
-        debt = st.slider("Mortgage Debt", min_value=000.0, max_value=1_000_000.0, step=5000.0, value=100_000.0, key="debt")
-        terms = st.slider("Mortgage Terms", min_value=000.0, max_value=600.0, step=12.0, value=300.0, key="terms")
-        print(inter,debt,terms)
-
+        if "monthly_surplus" not in state: state.monthly_surplus=0
+        if "total_monthly" not in state: state.total_monthly = 0
+        if "one_time" not in state:state.one_time = 0
+        inter = st.slider("Interest_Rate", min_value=0.0, max_value=10.0, step=0.1, value=[2.0], key="interest_rate")
+        debt = st.slider("Mortgage Debt", min_value=0.0, max_value=1_000_000.0, step=5000.0, value=100_000.0, key="debt")
+        terms = st.slider("Mortgage Terms", min_value=0.0, max_value=50.0, step=1.0, value=10.0, key="terms")
+        cl1, cl2,cl3 = st.columns([1,1,1])
+        with cl1:
+            st.number_input("Monthly Extra", key="monthly_surplus", step=50)
+        with cl2:
+            st.number_input("Total Monthly Payment", key="total_monthly", step=50)
+        with cl3:
+            st.number_input("One Time Payment", key="one_time", step=50)

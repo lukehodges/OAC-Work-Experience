@@ -15,7 +15,6 @@ def dollar(f, round_ceil=decimal.ROUND_CEILING):
     """
     This function rounds the passed float to 2 decimal places.
     """
-    print(type(f))
     if not isinstance(f, decimal.Decimal):
         f = decimal.Decimal(str(f))
     return f.quantize(DOLLAR_QUANTIZE, rounding=round_ceil)
@@ -26,10 +25,10 @@ class Mortgage:
     interest: float
     months: int
     amount: Decimal
-
+    monthly_surplus:Decimal=Decimal("0.00")
     def __post_init__(self):
-        print(type(self.amount))
         self.amount = dollar(self.amount)
+        self.monthly_surplus = dollar(self.monthly_surplus)
 
 
     def month_growth(self):
@@ -69,10 +68,11 @@ class Mortgage:
         return self.monthly_payment() * MONTHS_IN_YEAR
 
     def total_payout(self):
-        return self.monthly_payment() * self.loan_months()
+        return dollar(self.monthly_payment() * dollar(self.loan_months()))
+    def total_interest(self):
+        return self.total_payout()-self.amount
 
     def monthly_payment_schedule(self):
-        print("running...")
         monthly = self.monthly_payment()
         balance = dollar(self.amount)
         rate = decimal.Decimal(str(self.interest)).quantize(decimal.Decimal(".000001"))
@@ -80,7 +80,6 @@ class Mortgage:
             interest_unrounded = balance * rate * decimal.Decimal(1) / MONTHS_IN_YEAR
             interest = dollar(interest_unrounded, round_ceil=decimal.ROUND_HALF_UP)
             if monthly >= balance + interest:
-                print("value finished")
                 yield float(balance), float(interest), float(rate)
                 break
             principle = monthly - interest
@@ -125,8 +124,10 @@ class RefactorMortgage:
 
     @staticmethod
     def byPrinciple(mortgage, principle):
-        return Mortgage(mortgage.interestAlter, mortgage.months, principle)
-
+        return Mortgage(mortgage.interest, mortgage.months, principle)
+    @staticmethod
+    def byExtraInstallment(mortgage, extra_installment):
+        return Mortgage(mortgage.interest, mortgage.months, mortgage.principle, monthly_surplus=extra_installment)
 
 def print_summary(m):
     print("{0:>25s}:  {1:>12.6f}".format("Rate", m.interestAlter))

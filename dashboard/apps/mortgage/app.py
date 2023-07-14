@@ -42,8 +42,11 @@ def main():
         event.Hotkey("shift+s", sync(), bindInputs=True, overrideDefault=True)
         with widget_order.dashboard(rowHeight=57):
 
-            widget_order.variables()
-            widget_order.debt_graph()
+            col1, col2 = st.columns([1,1])
+            with col1:
+                widget_order.variables()
+            with col2:
+                widget_order.debt_graph()
 
             # widget_order.editor()
             # widget_order.player()
