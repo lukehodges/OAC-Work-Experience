@@ -111,8 +111,8 @@ class RefactorMortgage:
             raise Exception("Payment Not Large Enough")
         if months == 0:
             print("Payment of just interest")
-        print(f"Shifting mortgage to a {months} month time scale @ {mortgage.interestAlter} %")
-        return Mortgage(mortgage.interestAlter, months, mortgage.amount)
+        print(f"Shifting mortgage to a {months} month time scale @ {mortgage.interest} %")
+        return Mortgage(mortgage.interest, months, mortgage.amount)
 
     @staticmethod
     def byInterest(mortgage, interest):
@@ -120,7 +120,7 @@ class RefactorMortgage:
 
     @staticmethod
     def byTerm(mortgage, term):
-        return Mortgage(mortgage.interestAlter, term, mortgage.amount)
+        return Mortgage(mortgage.interest, term, mortgage.amount)
 
     @staticmethod
     def byPrinciple(mortgage, principle):
