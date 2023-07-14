@@ -35,7 +35,7 @@ def main():
         board = Dashboard()
         w = SimpleNamespace(
             dashboard=board,
-            editor=Editor(board, 0, 0, 6, 11, minW=3, minH=3),
+            editor=Editor(board, 0, 0, 1, 11, minW=1, minH=3),
             player=Player(board, 0, 12, 6, 10, minH=5),
             pie=Pie(board, 6, 0, 6, 7, minW=3, minH=4),
             radar=Radar(board, 12, 7, 3, 7, minW=2, minH=4),

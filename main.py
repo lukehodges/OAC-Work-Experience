@@ -2,7 +2,8 @@ import streamlit as st
 
 from dashboard import apps, components
 from dashboard.utils.page import page_group
-
+from dashboard.apps.mortgage import MortgageMain
+from dashboard.apps.mortgage import MortgageComparison
 def main():
     page = page_group("p")
 
@@ -10,7 +11,8 @@ def main():
         st.title("Calculation Gallery")
         with st.expander("✨ APPS", True):
             page.item("Streamlit gallery", apps.gallery, default=True)
-            page.item("Mortgage Calculator", apps.mortgage)
+            page.item("Mortgage Calculator", MortgageMain)
+            page.item("Mortgage Comparison", MortgageComparison)
         with st.expander("🧩 COMPONENTS", True):
             page.item("Ace editor", components.ace_editor)
             page.item("Disqus", components.disqus)
