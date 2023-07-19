@@ -11,7 +11,7 @@ the /data/apptx stores the individual data by months
 to map the regional data from the productivity to the NHS data, `/data/mapping.xlsx` stores the list of trusts on the left and their relevant region. this is currently randomly assigned appart from those highlighted
 
 ## setup
-the two notebooks required to run this data is `preparing data` and `processing data`. to add more data, insert the relevant csv files into `data/apptx/{year}` and append the year in the start of preparing data
+the two notebooks required to run this data is `preparing data` and `processing data`. to add more data, insert the relevant csv files into `data/apptx/{year}/{month}.csv` and append the year in the start of preparing data
 if the data only goes back to a certian month, we can ignore any other months in the same year with an if statement similar to the one already provided
 
 
