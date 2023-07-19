@@ -99,9 +99,9 @@ def main():
             with c2:st.metric(label="Years Till Paid", value=int(float(m2.months)/12),delta=round((m2.months-m1.months)/12), delta_color="inverse")
             with c3:st.metric(label="Total Interest", value=float(m2.total_interest()),delta=-tot, delta_color="inverse")
 
-            df = pd.DataFrame(columns=["A","B", "Years"])
-            df.A = pd.Series(m1d)
-            df.B = pd.Series(m2d)
+            df = pd.DataFrame(columns=["Old","New", "Years"])
+            df.Old = pd.Series(m1d)
+            df.New = pd.Series(m2d)
             df.Years = df.index/12
             st.line_chart(df, x="Years")
 
